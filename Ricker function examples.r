@@ -1,7 +1,5 @@
 #--- Determinisitc Ricker function plots ---#
 
--0.02, -0.05, -0.5, 0, 0.02, 0.5
-
 par(mfrow=c(2,3)) #Optional for making panel plots
 
 K <- 200 #Carrying capacity across all sites
