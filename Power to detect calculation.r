@@ -22,3 +22,11 @@ p.out[,i] <- power
 }
 
 p.out #To view populated matrix of power cacluations for each of your scenarios
+
+# Export matrix of power calculatons as a .csv file to your working directory
+library(MASS)
+write.matrix(p.out,file="Power_calcs.csv")
+
+# Note that you may need to change your working directory depnding on defaults
+# To check location of your working directory, use getwd()
+# To change location of working directory, use something like setwd("D:/R_outputs")
