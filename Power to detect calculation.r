@@ -15,6 +15,7 @@ M <- length(n.reps)
 T <-length(p.trial)
 p.out <- matrix(NA, M, T) #Sets up a matrix of NA values to write the for loop outputs into
 colnames(p.out) <- p.trial
+rownames(p.out) <- n.reps
 
 for(i in 1:T) {
 power <- 1 - (1-p.trial[i])^n.reps
