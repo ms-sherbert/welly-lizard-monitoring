@@ -1,4 +1,4 @@
-#--- Determinisitc Ricker function plots ---#
+#--- Deterministic Ricker function plots ---#
 
 par(mfrow=c(2,3)) #Optional for making panel plots
 
@@ -7,7 +7,6 @@ lambda <- 10
 n.sites <- 10
 Ninit <- lambda * n.sites #Initial N across all monitoring sites
 T <- 31
-
 
 Abundance <- rep(NA, times = T) #Sets up a vector of NA values to write the for loop outputs into
 Abundance[1] <- Ninit
