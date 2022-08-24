@@ -1,12 +1,12 @@
 library(unmarked)
 
 #--- List of simulation inputs (to be varied by scenario) ---#
-M <- 30 #Number of sites with at least one individual lizard detected
+M <- 20 #Number of sites with at least one individual lizard detected
 T <- 10 #Number of observations (=surveys) per site (here, this is an annual survey for 10 years)
 lambda <- 11 #Assumed initial average abundance per 100m2 site based on Wildland Consultants (2022).
-r <- 0.99 #Annual population change rate of -1% (r = 0 means stable population)
+r <- -0.02 #Annual population change rate of ca. -1% over a ten-year period (r = 0 means stable population)
 K <- 100 #Carrying capacity at site i - currently set high enough to not constrain population growth rate
-p <- 0.20 #Individual detection probability for primary period
+p <- 0.23 #Individual detection probability for primary period
 
 #--- Simulate a single scenario under Ricker population growth model ---#
 y <- N <- matrix(NA, M, T)
