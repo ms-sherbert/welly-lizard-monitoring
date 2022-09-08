@@ -10,9 +10,9 @@ protocol from unmarked individuals.
 Uses equation from Royle and Dorazio (2008).  
 
 `Ricker DM model simulation.r` R script for simulating repeated count data from a Poisson-distributed population with imperfect individual detection probability over a number of primary periods. 
-Each primary period consists of a single survey. Population change between primary periods follows a Ricker (1954) function.
+Each primary period consists of a single survey. Simulated population change between primary periods follows a Ricker (1954) function.
 Individual detection probability is modeled as a binomial process with *p* = individual detection probability = [0,1].
-Uses Dail-Madsen (2011) models to model data and as basis for power analysis in unmarked package. 
+Uses Dail-Madsen (2011) models to model data and as basis for power analysis in unmarked package.  Model `dynamics = "trend"` because `dynamics = "ricker"` returned a singular Hessian matrix.
 Modeled on code provided by Hostetler and Chandler (2015).
 
 `sim_robust.r` R script that extends `Ricker DM model simulation.r` to simulate and run a power analysis on data from a robust design programme with 
