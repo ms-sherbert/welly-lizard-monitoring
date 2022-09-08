@@ -54,6 +54,6 @@ summary(m1) #Provides parameter estimates and the associated standard errors and
 
 #--- Power analysis ---#
 # Set desired effect sizes to pass to coefs
-effect_sizes <- list(gamma) #To fix - this is missing any refernce to model m1!
+effect_sizes <- list(gamma) #To fix - this is missing any reference to model m1!
 # Run power analysis and look at summary
 pa <- powerAnalysis(m1, coefs=effect_sizes, alpha=0.05)
