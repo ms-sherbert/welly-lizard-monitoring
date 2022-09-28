@@ -14,6 +14,8 @@ p <- 0.23 #Individual detection probability for primary period
 
 #--- Simulate a single scenario under Ricker population growth model ---#
 
+set.seed(3)
+
 # Simulate Poisson-distributed local abundance across sites for each primary period
 N <- matrix(NA, M, T)
 N[,1] <- rpois(M, lambda)
@@ -42,18 +44,21 @@ plot(TotCounts ~ Year, ylab="N individuals per secondary period")
 par(mfrow=(c(1,1)) #Re-sets the graphics window back to one pane
 
 #--- Prepare simulated data set for unmarked analysis ---#
+
 umf <- unmarkedFramePCO(y = y, numPrimary=T)
 summary(umf)
 #plot(umf) #if you want a visual representation of the count data for each year and site
 
 
 #--- Fit model and extract parameter estimates ---#
-m1 <- pcountOpen(~1, ~1, ~1, ~1, umf, K=30,dynamics="trend") # K should be higher than maximum N(it) and sufficiently high to not constrain estimates of N(it).
+m1 <- pcountOpen(~1, ~1, ~1, ~1, umf, K=30,dynamics="trend",method="Nelder-Mead") # K should be higher than maximum N(it) and sufficiently high to not constrain estimates of N(it).
 # Note that in runs of previous versions of this code, models with dynamics="ricker" returned singular Hessian matrices. 
 summary(m1) #Provides parameter estimates and the associated standard errors and p-values.
 
 #--- Power analysis ---#
 # Set desired effect sizes to pass to coefs
-effect_sizes <- list(gamma) #To fix - this is missing any reference to model m1!
+effect_sizes <- list(lambda=c(intercept=0),gamma=c(intercept=0),det=c(intercept=0)) 
+
 # Run power analysis and look at summary
 pa <- powerAnalysis(m1, coefs=effect_sizes, alpha=0.05)
+pa
