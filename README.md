@@ -2,7 +2,8 @@
 A repository for analysis and power analysis of lizard survey data collected using a repeated count 
 protocol from unmarked individuals.
 
-**Note**: This repository is still in development as at 29/09/2022. Some extensions can be made to the power analysis script to simulate more scenarios. 
+**Note**: This repository is still in development as at 29/09/2022, but all the code works. 
+Some extensions can be made to the power analysis script to simulate more scenarios. 
 
 ## Repository contents:
 
@@ -13,7 +14,7 @@ Uses equation from Royle and Dorazio (2008).
 Each primary period consists of a single survey. Simulated population change between primary periods follows a Ricker (1954) function.
 Individual detection probability is modeled as a binomial process with *p* = individual detection probability = [0,1].
 Uses Dail-Madsen (2011) models to model data and as basis for power analysis in unmarked package.  Model uses `method = "Nelder-Mead"` because original model where `dynamics = "ricker"` returned a singular Hessian matrix.
-`dynamics = "trend"` used because of the relatively short time frame (10 years) of the simulated data and the primary interest in detection declining trends. 
+`dynamics = "trend"` used because of the relatively short time frame (10 years) of the simulated data and the primary interest in detecting declining trends. 
 Modeled on code provided by Hostetler and Chandler (2015).
 
 `sim_robust.r` R script that extends `Ricker DM model simulation.r` to simulate and run a power analysis on data from a robust design programme with 
