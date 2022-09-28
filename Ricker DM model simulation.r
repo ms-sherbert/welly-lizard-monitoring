@@ -24,7 +24,7 @@ summary(umf)
 #plot(umf) #if you want a visual representation of the count data for each year and site
 
 #--- Fit model and extract parameter estimates ---#
-m1 <- pcountOpen(~1, ~1, ~1, ~1, umf, K=40,dynamics="trend") # K should be higher than maximum N(it) and sufficiently high to not constrain estimates of N(it).
+m1 <- pcountOpen(~1, ~1, ~1, ~1, umf, K=40,dynamics="trend",method="Nelder-Mead") # K should be higher than maximum N(it) and sufficiently high to not constrain estimates of N(it).
 summary(m1) #Provides parameter estimates and the associated standard errors and p-values.
 
 # For back-transformed estimates
