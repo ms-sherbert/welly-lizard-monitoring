@@ -1,5 +1,4 @@
 #--- Update of "Ricker DM model simulation.r" to simulate robust design ---#
-#--- In development, doesn't work right now ---#
 
 library(unmarked)
 
@@ -7,7 +6,7 @@ library(unmarked)
 M <- 20 #Number of sites with at least one individual lizard detected
 T <- 10 #Number of primary survey periods (here, this is an annual survey for 10 years)
 J <- 5 #Number of secondary survey periods
-lambda <- 11 #Assumed initial average abundance per 100m2 site based on Wildland Consultants (2022).
+lam <- 11 #Assumed initial average abundance per 100m2 site based on Wildland Consultants (2022).
 r <- -0.02 #Annual population change rate of ca. -1% over a ten-year period (r = 0 means stable population)
 K <- 100 #Carrying capacity at site i - currently set high enough to not constrain population growth rate
 p <- 0.23 #Individual detection probability for primary period
@@ -18,7 +17,7 @@ set.seed(3)
 
 # Simulate Poisson-distributed local abundance across sites for each primary period
 N <- matrix(NA, M, T)
-N[,1] <- rpois(M, lambda)
+N[,1] <- rpois(M, lam)
 
     for(t in 2:T) {
         mu <- N[,t-1]*exp(r*(1-N[,t-1]/K))
@@ -51,13 +50,19 @@ summary(umf)
 
 
 #--- Fit model and extract parameter estimates ---#
-m1 <- pcountOpen(~1, ~1, ~1, ~1, umf, K=30,dynamics="trend",method="Nelder-Mead") # K should be higher than maximum N(it) and sufficiently high to not constrain estimates of N(it).
-# Note that in runs of previous versions of this code, models with dynamics="ricker" returned singular Hessian matrices. 
+m1 <- pcountOpen(~1, ~1, ~1, ~1, umf, K=40,dynamics="trend",method="Nelder-Mead") 
+# K should be higher than maximum N(it) and sufficiently high to not constrain estimates of N(it).
+# Used trend dynamic due to the relatively short time frame
 summary(m1) #Provides parameter estimates and the associated standard errors and p-values.
+
+# For back-transformed estimates
+lamb <- exp(coef(m1, type="lambda"))
+gam <- exp(coef(m1, type="gamma"))
+p <- plogis(coef(m1, type="det"))
 
 #--- Power analysis ---#
 # Set desired effect sizes to pass to coefs
-effect_sizes <- list(lambda=c(intercept=0),gamma=c(intercept=0),det=c(intercept=0)) 
+effect_sizes <- list(lambda=c(intercept=0),gamma=c(intercept=-0.02),det=c(intercept=0.23)) 
 
 # Run power analysis and look at summary
 pa <- powerAnalysis(m1, coefs=effect_sizes, alpha=0.05)
